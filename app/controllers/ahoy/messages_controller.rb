@@ -38,6 +38,11 @@ module Ahoy
         if subscriber.respond_to?(name)
           event[:message] = @message
           event[:controller] = self
+
+          if @message.respond_to?(:request)
+            @message.request = request
+          end
+
           subscriber.send name, event
         end
       end
